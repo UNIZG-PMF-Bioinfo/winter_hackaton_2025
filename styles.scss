@@ -1,0 +1,155 @@
+/*-- scss:defaults --*/
+
+// Import font
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&display=swap');
+
+// Winter / Christmas color palette
+$primary-color: #0B3D3B;      // deep evergreen
+$secondary-color: #B22222;    // classic Christmas red
+$accent-color: #E6B800;       // warm gold
+$background-color: #F7FAFC;   // soft snowy white
+$text-color: #102A43;         // dark wintery blue
+$gray-light: #E6F0F7;         // cool light gray
+
+// Base document colors
+$navbar-bg: $primary-color;
+$navbar-fg: $background-color;
+$navbar-hl: $accent-color;
+$body-bg: $background-color;
+$body-color: $text-color;
+$footer-bg: $primary-color;
+$link-color: $secondary-color;
+
+// Inline code
+$code-bg: #F0F4F8;
+$code-color: $secondary-color;
+
+/*-- scss:rules --*/
+
+// Subtle snowy background
+body {
+  font-family: 'Nunito', sans-serif;
+  background: radial-gradient(circle at top, #FFFFFF 0, #F7FAFC 40%, #E6F0F7 100%);
+}
+
+// Navbar logo size
+.navbar-brand img {
+  max-height: 45px;
+  width: auto;
+}
+
+// Navbar text
+.navbar-brand,
+.navbar-nav .nav-link {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  font-weight: 800;
+  color: $accent-color !important;
+}
+
+// Add a subtle bottom border to navbar for a “wrapped” look
+.navbar {
+  border-bottom: 3px solid lighten($secondary-color, 15%);
+}
+
+// Sidebar ToC items
+.tocify-item,
+.tocify-subheader {
+  font-weight: 600;
+}
+
+// Headers
+h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: $primary-color;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  border-bottom: 4px solid $accent-color;
+  padding-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: $secondary-color;
+  border-bottom: 3px solid lighten($secondary-color, 25%);
+  padding-bottom: 5px;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: darken($accent-color, 10%);
+  border-bottom: 3px solid lighten($accent-color, 20%);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+h4 {
+  font-size: 1.55rem;
+  font-weight: 500;
+  color: $primary-color;
+  border-bottom: 3px solid lighten($primary-color, 25%);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: $primary-color;
+  border-bottom: 3px solid lighten($primary-color, 45%);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+// Links hover – little golden glow
+a:hover {
+  color: $accent-color;
+  text-decoration: none;
+}
+
+// Inline code – slightly “frosted” look
+code {
+  background-color: $code-bg;
+  color: $code-color;
+  border-radius: 3px;
+  padding: 0.1rem 0.25rem;
+}
+
+// Kuzman Consulting highlight block – turned into a festive banner
+.kuzman {
+  background: linear-gradient(
+    135deg,
+    lighten($secondary-color, 5%) 0%,
+    $secondary-color 40%,
+    darken($secondary-color, 8%) 100%
+  );
+  color: white;
+  font-weight: 700;
+  padding: 0.9rem 1.1rem;
+  border-left: 6px solid darken($primary-color, 5%);
+  border-radius: 6px;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.kuzman-title {
+  color: $secondary-color;
+  font-weight: 800;
+  font-size: 1.4rem;
+  border-bottom: 3px solid lighten($accent-color, 10%);
+  display: inline-block;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}

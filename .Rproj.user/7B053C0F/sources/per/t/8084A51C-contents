@@ -1,0 +1,734 @@
+---
+title: "Winter hackaton : Elf's model"
+format: html
+editor: visual
+---
+
+```{r, message=FALSE, eval=FALSE}
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
+vec_pkgs <- c(
+  "data.table", "ggplot2", "ggpubr", "corrplot", "Hmisc",
+  "caret", "MASS", "factoextra", "Boruta", "stringr",
+  "broom", "kableExtra", "pROC", "GGally"
+)
+
+for (pkgs in vec_pkgs) {
+  library(pkgs, character.only = TRUE)
+}
+```
+
+# Santa's smoky chimney syndrome 🧱🧱🔥
+
+First I need to load the data.
+
+```{r}
+lung <- fread("Project_lung_cancer/Lung_cancer_subset.csv.gz")
+```
+
+### Exploratory analysis
+
+a)  I will use `str()`, `summary()` and ggpairs from `GGally` package to explore the dataset and understand what it contains.
+
+```{r, message=FALSE, warning=FALSE}
+str(lung)
+summary(lung)
+# creating my pallete for cancer stage
+pal_stage <- c("Stage I" = "#0B3D3B", "Stage IV" = "#B22222")
+
+# firat 5 cols
+ggpairs(lung[,-c("Patient_ID")],
+        aes(color = Stage),
+        columns = 1:5) +
+  scale_fill_manual(values = pal_stage) +
+  scale_color_manual(values = pal_stage) 
+
+# second 5 cols
+ggbivariate(lung, 
+            outcome = "Stage", 
+            explanatory = c("Age", 
+                            "Gender",
+                            "Comorbidity_Chronic_Lung_Disease", 
+                            "Smoking_History",
+                            "Tumor_Size_mm"))
+```
+
+b)  Since Santa is a male I am curious Are males more likely to be smokers than females?
+
+```{r}
+# create a table for sexes
+table_sex_smoking <- table(lung[, Smoking_History],
+           lung[, Gender])
+
+## get the table
+table_sex_smoking
+## test
+chisq.test(table_sex_smoking)
+
+ggplot(lung, aes(x=Smoking_History, fill=Gender)) +
+  geom_bar(position="fill", color="black", width=0.7) +
+  theme_bw() +
+  scale_fill_manual(values=c("magenta4", "royalblue4"))
+```
+
+c)  Do smokers have lower number of white blood cells (column `White_Blood_Cell_Count`)? Investigate this using both visualization and statistical testing.
+
+```{r}
+## evaluate normality
+ggqqplot(lung, x = "White_Blood_Cell_Count",
+         color = "Smoking_History",
+         facet.by = "Smoking_History") +
+  theme(legend.position = "none") +
+  scale_color_manual(values= c("black", "gray30", "grey")) +
+  scale_fill_manual(values= c("black", "gray30", "grey"))
+
+## plot
+ggplot(lung, aes(x=Smoking_History,
+                   y=White_Blood_Cell_Count)) +
+  geom_violin(aes( fill=Smoking_History)) +
+  geom_boxplot(width= 0.3, alpha = 0.8) +
+  theme_bw() +
+  ggpubr::stat_compare_means(  ) +
+  scale_fill_manual(values= c("black", "gray30", "grey")) +
+  theme(legend.position = "none")
+```
+
+d)  Visualize the distribution of `Tumor_Size_mm` per cancer `Stage`. Perform the appropriate test to determine if there is a significant difference.
+
+```{r}
+ggplot(lung, aes(x=Tumor_Size_mm, fill=Stage)) +
+  geom_density(alpha=0.4) +
+  theme_bw() +
+  scale_fill_manual(values = pal_stage)
+```
+
+e)  Which numerical variables are most strongly correlated?
+
+```{r}
+cor_data <- lung[, .SD,.SDcols=is.numeric]
+cor_matrix <- cor(cor_data)
+
+# plot correlation
+corrplot(cor_matrix, method = 'square', type = 'upper', diag = FALSE, tl.col = "black")
+```
+
+F) 
+```{r}
+num_lung <- lung[,.SD, .SDcols = is.numeric]
+pca_res_lung <- prcomp(num_lung, center = TRUE, scale. = TRUE)
+
+library(factoextra)
+fviz_pca_biplot(
+  pca_res_lung,
+  geom.ind = "point",
+  col.ind = lung$Stage,
+  palette = pal_stage,
+  addEllipses = TRUE,
+  legend.title = "Stage",
+  repel = TRUE
+) +
+  ggtitle("PCA BMI + Bacteria")
+
+```
+
+g) heatmap
+```{r}
+t_num_lung <-  num_lung %>% t()
+
+colnames(t_num_lung) <- lung$Patient_ID
+
+sample_annot_lung <- lung[,.(Patient_ID, Stage)] %>% 
+    textshape::column_to_rownames("Patient_ID")
+# plot
+pheatmap(
+  t_num_lung,
+  scale = "row",                   # Normalize each row
+  cluster_rows = TRUE,
+  cluster_cols = TRUE,
+  color = colorRampPalette(c("navy", "white", "firebrick3"))(50), 
+  show_rownames = TRUE,
+  show_colnames = FALSE,
+    annotation_col = sample_annot_lung
+)
+```
+
+
+### 🤖 Model Development: Predicting Carcinoma Stage
+
+For my testing of advanced model prediction I selected a glm and an complex catboost to test my models.
+
+First I need to split my data into training an test, to see on a test set if glm or catboost perform better.
+
+I need to set a seed to ensure reproducibility.
+
+```{r}
+set.seed(12)
+lung_clean <- lung[,-c("Patient_ID")][Stage%in%c("Stage I", "Stage IV")]
+
+lung_clean[, Stage := ifelse(Stage == "Stage I", "Low", "High")]
+
+# Make sure outcome is a factor for classification
+lung_clean[, Stage := factor(Stage)]
+
+# Splitting data into training and testing sets
+trainIndex <- createDataPartition(lung_clean$Stage, 
+                                  p = 0.8, 
+                                  list = FALSE, 
+                                  times = 1)
+trainData <- lung_clean[trainIndex, ]
+testData <- lung_clean[-trainIndex, ]
+
+# checking if I have balanced stage annotations 
+trainData[,.N, Stage]
+testData[,.N, Stage]
+```
+
+Since I am affraid of higly correlated features, I am going to remove those with 0.8 which I detect in my training set.
+
+```{r}
+# Compute correlation matrix
+corr_mat <- cor(trainData[,.SD,.SDcols=is.numeric], 
+                use = "pairwise.complete.obs")
+
+
+# Find columns to remove (threshold example: 0.9)
+to_remove <- findCorrelation(corr_mat, 
+                             cutoff = 0.8,
+                             names=TRUE)
+# I do not have to remove any features
+to_remove
+```
+
+I am continuing my analysis on the training set. Since glm does not perform any feature selection importance I will do one whole model and one with a selected features.
+
+```{r}
+## develop a model only on those significant features
+glm_model <- train(
+  Stage ~ .,
+  data = trainData,
+  method = "glm",
+  family = binomial,
+  trControl = ctrl    # usually trainControl(...)
+)
+# confusion matric
+table(predict(glm_model, testData), testData$Stage) %>% 
+  confusionMatrix()
+
+## feature selection Lasso------
+# LASSO = alpha = 1
+lasso_grid <- expand.grid(
+  alpha = 1,                          # LASSO
+  lambda = 10^seq(-4, 2, length = 50) # candidate penalties
+)
+
+lasso_model <- train(
+  Stage ~ .,
+  data = trainData,
+  method = "glmnet",
+  family = "binomial",
+  trControl = ctrl
+)
+
+table(predict(lasso_model, testData), testData$Stage) %>% 
+  confusionMatrix()
+
+# significant coefficients
+coef(lasso_model$finalModel, lasso_model$bestTune$lambda)
+```
+
+Random forest model
+
+```{r, warning=FALSE, message=FALSE}
+# 1) Train control with class probabilities + ROC optimization
+ctrl <- trainControl(
+  method = "cv",
+  number = 10,
+  classProbs = TRUE,
+  summaryFunction = twoClassSummary,
+  savePredictions = "final"
+)
+
+# 2) Define a tuning grid for mtry (36 predictors → try a range)
+tune_grid <- expand.grid(
+  mtry          = c(2:4, 8, 10),
+  splitrule     = c("gini"),
+  min.node.size = c(1, 3, 5)
+)
+
+# 3) Train RF with hyperparameter tuning
+set.seed(123)
+rf_model <- train(
+  Stage ~ .,
+  data = trainData,
+  method = "ranger",
+  trControl = ctrl,
+  tuneGrid = tune_grid,
+  num.trees = 600,
+  importance = "impurity"
+)
+
+rf_model$finalModel
+rf_model$bestTune
+plot(rf_model)
+
+#
+table(predict(rf_model, testData), testData$Stage) %>% 
+  confusionMatrix()
+
+## variable importance
+varImp_rf <- varImp(rf_model)
+plot(varImp_rf, top = 20)
+```
+
+
+## Test dataset with the one best model
+
+```{r}
+test_data <- fread("../hackaton25/Project_lung_cancer/Lung_cancer_TEST.csv.gz")
+test_data
+test_data[, Stage := ifelse(Stage == "Stage I", "Low", "High")]
+test_data[, Stage := factor(Stage)]
+
+
+# on new dataset---------------
+table(predict(glm_model, test_data), test_data$Stage) %>% 
+  confusionMatrix()
+
+table(predict(lasso_model, test_data), test_data$Stage) %>% 
+  confusionMatrix()
+
+table(predict(rf_model, test_data), test_data$Stage) %>% 
+  confusionMatrix()
+```
+
+
+
+# Santa's cookie addiction crisis 🍪🍪🍪
+
+First I need to load the data.
+
+```{r}
+microbiome <- fread("Project_microbiome_obesity/Mirobiome_subset.csv.gz")
+```
+
+### Exploratory analysis
+a)  Use the functions `str()` and `summary()` to explore the dataset and understand what it contains. How many different bacteria do you have in your table?
+```{r, message=FALSE, warning=FALSE}
+str(microbiome)
+summary(microbiome)
+
+# firat 5 cols
+ggbivariate(microbiome, 
+            outcome = "disease", 
+            explanatory = c("bmi", 
+                            "s__Bacteroides_uniformis", 
+                            "s__Bacteroides_vulgatus")
+            )
+
+ggpairs(microbiome[,-c(1:3)],  columns = 1:8)
+
+```
+
+```{r}
+pal_obese <- c(
+  "obesity"   = "#E63946",
+  "leaness" = "#55A630"
+)
+
+#
+ggqqplot(microbiome, x = "bmi",
+         color = "disease",
+         facet.by = "disease") +
+  theme(legend.position = "right") +
+  scale_fill_manual(values = pal_obese) +
+  scale_color_manual(values = pal_obese)
+
+
+###
+ggplot(microbiome, aes(x=disease, y=bmi)) +
+  geom_violin(aes(fill=disease)) +
+  geom_boxplot(width = 0.2, alpha=0.8) +
+  theme_bw() +
+  ggpubr::stat_compare_means(
+    ) +
+  scale_fill_manual(values = pal_obese) +
+  scale_color_manual(values = pal_obese) +
+  theme(legend.position = "none")
+```
+
+e)  What is the most abundant microbiome in total?
+```{r}
+microbiome[,lapply(.SD,sum),.SDcols=is.numeric, by=disease] %>% 
+  melt() %>% 
+  .[order(-value)]
+
+# most abundant in each class
+most_abund_micro <- microbiome[,.(disease, s__Subdoligranulum_unclassified,s__Prevotella_copri)] %>% 
+         melt(., id.vars="disease")
+
+
+ggplot(most_abund_micro, 
+       aes(x=disease, y=value)) +
+  geom_violin(aes(fill=disease)) +
+  geom_boxplot(width= 0.25) +
+  theme_bw() +
+  ggpubr::stat_compare_means() +
+  scale_fill_manual(values = pal_obese) +
+  scale_color_manual(values = pal_obese) +
+  facet_grid(~variable) +
+  theme(legend.position = "none")
+```
+
+ How do these samples cluster based on PCA?
+ 
+```{r}
+num_micro <- microbiome[,.SD, .SDcols = is.numeric]
+pca_res <- prcomp(num_micro, center = TRUE, scale. = TRUE)
+
+library(factoextra)
+fviz_pca_biplot(
+  pca_res,
+  geom.ind = "point",
+  col.ind = microbiome$disease,
+  palette = c("red", "darkgreen"),
+  addEllipses = TRUE,
+  legend.title = "Stage",
+  repel = TRUE
+) +
+  ggtitle("PCA BMI + Bacteria")
+
+##
+pca_res <- prcomp( microbiome[,.SD, .SDcols = is.numeric][,-c("bmi")], center = TRUE)
+
+library(factoextra)
+fviz_pca_biplot(
+  pca_res,
+  geom.ind = "point",
+  col.ind = microbiome$disease,
+  palette = c("red", "darkgreen"),
+  addEllipses = TRUE,
+  legend.title = "Stage",
+  repel = TRUE
+) +
+  ggtitle("PCA Bacteria")
+```
+```{r, fig.height=6}
+t_num_micro <-  num_micro %>% t()
+
+colnames(t_num_micro) <- microbiome$sampleID
+
+sample_annot <- microbiome[,.(sampleID, disease)] %>% 
+    textshape::column_to_rownames("sampleID")
+# plot
+pheatmap(
+  t_num_micro,
+  scale = "row",                   # Normalize each row
+  cluster_rows = TRUE,
+  cluster_cols = TRUE,
+  color = colorRampPalette(c("navy", "white", "firebrick3"))(50), 
+  show_rownames = TRUE,
+    annotation_col = sample_annot
+)
+
+```
+ 
+### 🤖 Model Development: Predicting Obesity using classification regression
+
+For my testing of advanced model prediction I selected a glm and an complex catboost to test my models.
+
+First I need to split my data into training an test, to see on a test set if glm or catboost perform better.
+
+I need to set a seed to ensure reproducibility.
+
+```{r}
+set.seed(12)
+microbiome
+microbiome_clean <- microbiome[,-c("dataset_name", "sampleID", "bodysite")]
+
+# remove BMI from calculation --
+microbiome_clean[, bmi := NULL]
+
+# Splitting data into training and testing sets
+trainIndex <- createDataPartition(microbiome_clean$disease, 
+                                  p = 0.8, 
+                                  list = FALSE, 
+                                  times = 1)
+trainData <- microbiome_clean[trainIndex, ]
+testData <- microbiome_clean[-trainIndex, ]
+
+# checking if I have balanced stage annotations 
+trainData[,.N, disease]
+testData[,.N, disease]
+```
+
+Since I am affraid of higly correlated features, I am going to remove those with 0.8 which I detect in my training set.
+
+```{r}
+# Compute correlation matrix
+corr_mat <- cor(trainData[,.SD,.SDcols=is.numeric], 
+                use = "pairwise.complete.obs")
+
+
+# Find columns to remove (threshold example: 0.8)
+to_remove <- findCorrelation(corr_mat, 
+                             cutoff = 0.8,
+                             names=TRUE)
+# I have 9 highly correlated
+to_remove
+
+# remove highly correlated features
+trainData[, (to_remove) := NULL]
+```
+
+I am continuing my analysis on the training set. Since glm does not perform any feature selection importance I will do one whole model and one with a selected features.
+
+```{r}
+## develop a model only on those significant features
+glm_model <- train(
+  disease ~ .,
+  data = trainData,
+  method = "glm",
+  family = binomial,
+  trControl = ctrl    # usually trainControl(...)
+)
+# confusion matric
+table(predict(glm_model, testData), testData$disease) %>% 
+  confusionMatrix(.,  positive = "obesity")
+
+## feature selection Lasso------
+# LASSO = alpha = 1
+lasso_grid <- expand.grid(
+  alpha = 1,                          # LASSO
+  lambda = 10^seq(-4, 2, length = 50) # candidate penalties
+)
+
+lasso_model <- train(
+  disease ~ .,
+  data = trainData,
+  method = "glmnet",
+  family = "binomial",
+  trControl = ctrl
+)
+
+table(predict(lasso_model, testData), testData$disease) %>% 
+  confusionMatrix(.,  positive = "obesity")
+
+# significant coefficients
+coef(lasso_model$finalModel, lasso_model$bestTune$lambda)
+```
+
+Random forest model
+
+```{r, warning=FALSE, message=FALSE}
+# 1) Train control with class probabilities + ROC optimization
+ctrl <- trainControl(
+  method = "cv",
+  number = 10,
+  classProbs = TRUE,
+  summaryFunction = twoClassSummary,
+  savePredictions = "final"
+)
+
+# 2) Define a tuning grid for mtry (36 predictors → try a range)
+tune_grid <- expand.grid(
+  mtry          = c(2:4, 8, 10),
+  splitrule     = c("gini"),
+  min.node.size = c(1, 3, 5)
+)
+
+# 3) Train RF with hyperparameter tuning
+set.seed(123)
+rf_model <- train(
+  disease ~ .,
+  data = trainData,
+  method = "ranger",
+  trControl = ctrl,
+  tuneGrid = tune_grid,
+  num.trees = 600,
+  importance = "impurity"
+)
+
+rf_model$finalModel
+rf_model$bestTune
+plot(rf_model)
+
+#
+table(predict(rf_model, testData), testData$disease) %>% 
+  confusionMatrix(., positive = "obesity")
+
+## variable importance
+varImp_rf <- varImp(rf_model)
+plot(varImp_rf, top = 10)
+```
+
+
+
+
+## Test dataset with the one best model
+
+```{r}
+test_data <- fread("../hackaton25/Project_microbiome_obesity/Mirobiome_TEST.csv.gz")
+test_data_known <- test_data[disease != "n"]
+test_data_unknown <- test_data[disease == "n"]
+
+# on new dataset---------------
+table(predict(glm_model, test_data_known), test_data_known$disease) %>% 
+  confusionMatrix()
+
+table(predict(lasso_model, test_data_known), test_data_known$disease) %>% 
+  confusionMatrix()
+
+table(predict(rf_model, test_data_known), test_data_known$disease) %>% 
+  confusionMatrix(., positive = "obesity")
+
+### on uknown samples ---------------------------
+test_data_unknown[, pred_class := predict(rf_model, test_data_unknown)]
+test_data_unknown %>% 
+  ggplot(., aes(x=pred_class, y=bmi)) +
+  geom_boxplot() +
+  geom_jitter()
+```
+
+### 🤖 Model Development: Predicting BMI using numerical regression
+
+```{r}
+set.seed(12)
+microbiome
+microbiome_clean <- microbiome[,-c("dataset_name", "sampleID", "bodysite", "SantaClaus", "disease")]
+
+
+##
+microbiome_clean[]
+
+# Splitting data into training and testing sets
+trainIndex <- createDataPartition(microbiome_clean$bmi, 
+                                  p = 0.8, 
+                                  list = FALSE, 
+                                  times = 1)
+trainData <- microbiome_clean[trainIndex, ]
+testData <- microbiome_clean[-trainIndex, ]
+
+# checking if I have balanced stage annotations 
+summary(trainData$bmi)
+summary(testData$bmi)
+```
+
+Since I am affraid of higly correlated features, I am going to remove those with 0.8 which I detect in my training set.
+
+```{r}
+# Compute correlation matrix
+corr_mat <- cor(trainData[,.SD,.SDcols=is.numeric], 
+                use = "pairwise.complete.obs")
+
+
+# Find columns to remove (threshold example: 0.8)
+to_remove <- findCorrelation(corr_mat, 
+                             cutoff = 0.8,
+                             names=TRUE)
+# I have 9 highly correlated
+to_remove
+
+# remove highly correlated features
+trainData[, (to_remove) := NULL]
+```
+
+
+
+## models
+```{r}
+ctrl <- trainControl(
+  method = "cv",
+  number = 10)
+## develop a model only on those significant features
+glm_model <- train(
+  bmi ~ .,
+  data = trainData,
+  method = "glm",
+  trControl = ctrl    # usually trainControl(...)
+)
+
+# confusion matric
+postResample(predict(glm_model, testData), testData$bmi)
+
+
+## feature selection Lasso------
+# LASSO = alpha = 1
+lasso_grid <- expand.grid(
+  alpha = 1,                          # LASSO
+  lambda = 10^seq(-4, 2, length = 50) # candidate penalties
+)
+
+lasso_model <- train(
+  bmi ~ .,
+  data = trainData,
+  method = "glmnet",
+  trControl = ctrl
+)
+
+# asses quality
+postResample(predict(lasso_model, testData), testData$bmi)
+
+# significant coefficients
+coef(lasso_model$finalModel, lasso_model$bestTune$lambda)
+```
+
+```{r, warning=FALSE, message=FALSE}
+# 2) Define a tuning grid for mtry (36 predictors → try a range)
+tune_grid <- expand.grid(
+  mtry          = c(2:4, 8, 10),
+  splitrule     = c("variance", "extratrees"),
+  min.node.size = c(1, 3, 5)
+)
+ctrl <- trainControl(
+  method = "cv",
+  number = 10,
+  search = "grid"
+)
+
+# 3) Train RF with hyperparameter tuning
+set.seed(123)
+rf_model <- train(
+  bmi ~ .,
+  data = trainData,
+  method = "ranger",
+  trControl = ctrl,
+  tuneGrid = tune_grid,
+  num.trees = 600,
+  importance = "impurity",
+  metric = "RMSE"
+)
+
+rf_model$finalModel
+rf_model$bestTune
+plot(rf_model)
+
+#
+postResample(predict(rf_model, testData), testData$bmi)
+
+## variable importance
+varImp_rf <- varImp(rf_model)
+plot(varImp_rf, top = 10)
+```
+
+
+
+
+## Test dataset with the one best model
+
+```{r}
+test_data <- fread("../hackaton25/Project_microbiome_obesity/Mirobiome_TEST.csv.gz")
+test_data_known <- test_data[disease != "n"]
+test_data_unknown <- test_data[disease == "n"]
+
+# on new dataset---------------
+postResample(predict(glm_model, test_data), test_data$bmi)
+
+postResample(predict(lasso_model, test_data), test_data$bmi)
+
+
+postResample(predict(rf_model, test_data), test_data$bmi)
+
+### on uknown samples ---------------------------
+test_data[SantaClaus == "Yes"]
+```
+

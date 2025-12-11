@@ -1,0 +1,4 @@
+"0","microbiome[,lapply(.SD,sum),.SDcols=is.numeric, by=disease] %>% "
+"0","  melt() %>% "
+"0","  .[order(-value)]"
+"2","Warning: id.vars and measure.vars are internally guessed when both are 'NULL'. All non-numeric/integer/logical type columns are considered id.vars, which in this case are columns [disease, ...]. Consider providing at least one of 'id' or 'measure' vars in future."

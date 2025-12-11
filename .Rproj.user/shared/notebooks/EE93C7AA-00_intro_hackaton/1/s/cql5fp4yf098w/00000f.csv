@@ -1,0 +1,13 @@
+"0","# Compute correlation matrix"
+"0","corr_mat <- cor(trainData[,.SD,.SDcols=is.numeric], "
+"0","                use = ""pairwise.complete.obs"")"
+"0",""
+"0",""
+"0","# Find columns to remove (threshold example: 0.9)"
+"0","to_remove <- findCorrelation(corr_mat, "
+"0","                             cutoff = 0.8,"
+"0","                             names=TRUE)"
+"0","# I do not have to remove any features"
+"0","to_remove"
+"1","character(0)
+"

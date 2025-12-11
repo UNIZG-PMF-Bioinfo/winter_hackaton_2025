@@ -1,0 +1,23 @@
+{
+  "index.qmd": {
+    "index.html": "c2dc0338"
+  },
+  "about.qmd": {
+    "about.html": "893beeb6"
+  },
+  "00_santa_microbime.qmd": {
+    "00_santa_microbime.html": "d6176a65"
+  },
+  "00_santa_microbiome.qmd": {
+    "00_santa_microbiome.html": "822912a4"
+  },
+  "01_santa_lung.qmd": {
+    "01_santa_lung.html": "b9112748"
+  },
+  "02_ Mrs_Claus_help.qmd": {
+    "02_ Mrs_Claus_help.html": "72026520"
+  },
+  "02_Mrs_Claus_help.qmd": {
+    "02_Mrs_Claus_help.html": "638d55ad"
+  }
+}

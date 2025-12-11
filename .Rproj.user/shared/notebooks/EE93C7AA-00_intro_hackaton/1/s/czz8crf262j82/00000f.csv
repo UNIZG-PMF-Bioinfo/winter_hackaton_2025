@@ -1,0 +1,7 @@
+"0","## evaluate normality"
+"0","ggqqplot(lung, x = ""White_Blood_Cell_Count"","
+"0","         color = ""Smoking_History"","
+"0","         facet.by = ""Smoking_History"") +"
+"0","  theme(legend.position = ""none"") +"
+"0","  scale_color_manual(values= c(""black"", ""gray30"", ""grey"")) +"
+"0","  scale_fill_manual(values= c(""black"", ""gray30"", ""grey""))"

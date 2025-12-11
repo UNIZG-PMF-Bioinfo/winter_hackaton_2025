@@ -1,0 +1,14 @@
+"0","set.seed(123)
+rf_model <- train(
+  Stage ~ .,
+  data = trainData,
+  method = ""ranger"",
+  trControl = ctrl,
+  tuneGrid = tune_grid,
+  metric = ""ROC"",
+  num.trees = 800
+)
+"
+"2","Warning: model fit failed for Fold08: mtry= 2, splitrule=gini, min.node.size=10 Error in ranger::ranger(dependent.variable.name = "".outcome"", data = x,  : 
+  User interrupt or internal error.
+"

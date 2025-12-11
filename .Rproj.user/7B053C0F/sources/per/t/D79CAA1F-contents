@@ -1,0 +1,28 @@
+project:
+  type: website
+
+website:
+  title: "Winter hackaton 2025"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - text: Santa's crisis
+        menu:
+          - text: Cookie addiction
+            href: 00_santa_microbiome.qmd
+          - text: Smoky chimney syndrome
+            href: 01_santa_lung.qmd
+
+  page-footer:
+    background: light
+    left: "Copyright 2025, Bioinformatics group"
+    right: "This website is built with Quarto."
+format:
+  html:
+    theme: styles.scss
+    mainfont: Nunito
+    toc: true
+    page-layout: full
+editor: visual
+

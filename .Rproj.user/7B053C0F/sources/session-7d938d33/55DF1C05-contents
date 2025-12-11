@@ -1,0 +1,111 @@
+---
+title: "Santa’s cookie addiction crisis 🍪🍪🍪"
+author: "Paula Štancl, PhD"
+format:
+  html:
+    self-contained: true
+    toc: true
+    toc-depth: 5
+    code-fold: false
+    fig-align: center
+    df-print: paged
+    code-summary: "Show code"
+    code-line-numbers: false
+    code-tools: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# Santa's Weighty Situation
+
+Ho ho ho... or maybe not so *ho ho ho* this year.\
+Santa Claus has been facing **serious health concerns** after an unprecedented rise in cookie consumption last Christmas. 🍪😵
+
+His belt can barely hold, and he has officially outgrown his magical sleigh!\
+But even more worrying than his waistline are the **metabolic complications** he's experiencing...
+
+![Cookie season is on!](img_santa/santa_cookie.png)
+
+------------------------------------------------------------------------
+
+## A Not-So-Jolly Diagnosis
+
+Unlike most individuals with obesity, Santa's condition shows:
+
+-   **Increased overall adiposity**
+-   **Dyslipidemia** (unhealthy blood fats)
+-   **Insulin resistance**
+-   **Systemic inflammation**
+
+The elves' medical staff are worried that if this continues...\
+Santa may not have enough energy to deliver presents around the world! 🎁💔
+
+------------------------------------------------------------------------
+
+## What the Science Tells Us
+
+A study by **Le Chatelier et al.** demonstrated that individuals with obesity who have **low gut bacterial richness**\
+(also known as **Low Gene Count -- LGC**) experience **more severe metabolic disturbances** compared to those with higher richness (**High Gene Count -- HGC**).
+
+In short:\
+\> 🧫 A less diverse microbiome may worsen obesity-related health issues.
+
+Santa's gut microbiota profiles indicate he belongs to the **LGC group** --- which could explain the worrying combination of symptoms he's facing.
+
+------------------------------------------------------------------------
+
+Now it's up to **us** --- the data scientists and microbiome detectives 🕵️🧠 ---\
+to build a **machine-learningg model** capable of distinguishing **obese vs. non-obese** individuals based on their gut microbiome profiles.
+
+Because Santa's microbiome data is highly confidential (North Pole GDPR is no joke 🧑‍⚖️🎄),\
+you'll only be allowed to **evaluate** it once your model is trained and validated.
+
+Your mission:\
+🎯 Predict whether Santa truly belongs to the "obese" group\
+🧫 Identify which microbial species are **protective in lean individuals**\
+💊 Suggest potential **probiotic interventions** to restore Santa's health
+
+Help Santa regain his energy, lift-off power, and **return to full sleigh-flying strength**! 🚀🛷✨
+
+------------------------------------------------------------------------
+
+# Let's Get to Work! 🔬🎄
+
+[Download the dataset](projects/Microbiome_subset.csv.gz)
+
+### 🔍 Exploratory Data Analysis (EDA)
+
+Start by carefully examining the microbiome dataset What are some key findings that stand out in your dataset?
+
+Your mission:\
+Formulate up to **10 insightful scientific questions**, then explore them using\
+meaningful visualizations and summary statistics. Such as Santa asks himself are girls more happier when receiving present wrapped in pink with a glittery bow?
+
+### 🤖 Model Development: Obesity Classification with Microbiome Data
+
+Train **two** machine-learning models capable of predicting whether an individual is **obese vs. non-obese** from microbiome features.
+
+Additionally, develop **two regression models** to predict BMI as a continuous outcome from microbiome features.
+
+Then:
+
+1.  **Compare their performance**
+2.  **Select the best model from classification and regression model** to move forward
+3.  Identify **which microbial features** are most influential in classification
+
+## Elf Paula's Approval Checkpoint 🧝
+
+Before Santa's confidential data is unlocked,\
+you must **submit your best model to the Elf Review Committee™** for approval.
+
+Once the elves confirm that your model meets North Pole regulatory standards (NP-FDA),\
+they will provide:
+
+-   Santa's **private** biomedical data in a **independent test set**
+
+Your final task:
+
+🎯 Determine Santa's overweight status with both classification and regresison model\
+📈 Assess how well your models generalizes to unseen cases 🍬 How well do unseen cases cluster with the ones used for training 💊 Comment which bacteria should we target to improve Santa's healt

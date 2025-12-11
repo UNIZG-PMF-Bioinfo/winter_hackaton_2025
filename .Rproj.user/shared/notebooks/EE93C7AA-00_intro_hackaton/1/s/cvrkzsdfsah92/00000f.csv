@@ -1,0 +1,5 @@
+"0","cor_data <- lung[, .SD,.SDcols=is.numeric]"
+"0","cor_matrix <- cor(cor_data)"
+"0",""
+"0","# plot correlation"
+"0","corrplot(cor_matrix, method = 'square', type = 'upper', diag = FALSE, tl.col = ""black"")"

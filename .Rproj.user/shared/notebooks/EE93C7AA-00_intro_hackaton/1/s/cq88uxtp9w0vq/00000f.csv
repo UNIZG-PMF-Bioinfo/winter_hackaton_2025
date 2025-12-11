@@ -1,0 +1,4 @@
+"0","ggplot(lung, aes(x=Tumor_Size_mm, fill=Stage)) +"
+"0","  geom_density(alpha=0.4) +"
+"0","  theme_bw() +"
+"0","  scale_fill_manual(values = pal_stage)"
