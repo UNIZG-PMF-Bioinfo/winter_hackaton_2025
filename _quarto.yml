@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: docs
+  resources:
+    - projects/Microbiome_subset.csv.gz
+    - projects/Lung_cancer_subset.csv.gz
 
 website:
   title: "Winter hackaton 2025"
