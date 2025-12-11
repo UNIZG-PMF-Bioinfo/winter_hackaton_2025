@@ -90,7 +90,7 @@ they will provide:
 
 Your final task:\
 🎯 Determine Santa's predicted cancer stage\
-📈 Assess how well your model generalizes to unseen cases 🍬 
+📈 Assess how well your model generalizes to unseen cases 🍬
 
 Let's hope that Santa ends up on the **healthier, happier** side of your classification results ---\
 we need him fit for sleigh duty!

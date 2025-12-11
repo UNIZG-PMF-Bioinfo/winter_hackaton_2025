@@ -1,0 +1,100 @@
+[
+  {
+    "objectID": "02_Mrs_Claus_help.html",
+    "href": "02_Mrs_Claus_help.html",
+    "title": "Mrs. Claus’ Guide to Your Winter Quest",
+    "section": "",
+    "text": "My dear winter traveler,\nDo not fear the frosty challenge of saving Santa and Christmas — for you are far more capable than you know! ❄️💫\nI, Mrs. Claus, am here to offer you a bit of warm wisdom and a few helpful gifts to light your snowy path. 🎁🌟\n\n\n\nA little bit of help…"
+  },
+  {
+    "objectID": "02_Mrs_Claus_help.html#mrs.-claus-wisdom-on-exploratory-analysis",
+    "href": "02_Mrs_Claus_help.html#mrs.-claus-wisdom-on-exploratory-analysis",
+    "title": "Mrs. Claus’ Guide to Your Winter Quest",
+    "section": "🔍✨ Mrs. Claus’ Wisdom on Exploratory Analysis",
+    "text": "🔍✨ Mrs. Claus’ Wisdom on Exploratory Analysis\nBefore you rush through the snowdrifts, remember your fundamental statistics — they are your compass in this frozen landscape.\nAlways check the pre-requirements of every question you ask; good analysis begins with good understanding. 📚✨\nTo aid you, I have tucked several useful tools into your sleigh:\n\n⛄ GGally\n\n🌟 ggpubr\n\n💫 ggstatsplot\n\n❄️ corrplot\n\nAlongside your sturdy base R knowledge, these will help you uncover hidden patterns beneath the winter frost."
+  },
+  {
+    "objectID": "02_Mrs_Claus_help.html#unsupervised-magic-in-the-winter-forest",
+    "href": "02_Mrs_Claus_help.html#unsupervised-magic-in-the-winter-forest",
+    "title": "Mrs. Claus’ Guide to Your Winter Quest",
+    "section": "🧊🔮 Unsupervised Magic in the Winter Forest",
+    "text": "🧊🔮 Unsupervised Magic in the Winter Forest\nDo not overlook the quiet magic of unsupervised methods.\nWhether you wander through:\n\n🌲 Hierarchical complete clustering\n\n✨ PCA or UMAP to carve beautiful shapes in the snow\n\nYou will find that these tools can reveal structures no map could show.\nFor extra sparkle, I recommend:\n\n🔥 pheatmap\n\n🎁 factoextra\n\nLet them add a bit of festive punch to your winter explorations!"
+  },
+  {
+    "objectID": "02_Mrs_Claus_help.html#mrs.-claus-guidance-for-modeling",
+    "href": "02_Mrs_Claus_help.html#mrs.-claus-guidance-for-modeling",
+    "title": "Mrs. Claus’ Guide to Your Winter Quest",
+    "section": "🤖🎁 Mrs. Claus’ Guidance for Modeling",
+    "text": "🤖🎁 Mrs. Claus’ Guidance for Modeling\nWhen it comes time for modeling, remember:\nGood machine learning practices are your warm mittens — never start without them. 🧤✨\nTo make your journey smoother, I wholeheartedly recommend the caret package.\nIt offers quick, tidy, and powerful access to countless ML methods, both simple and advanced. 🎀🤖\n\nGo forth with confidence, my dear researcher.\n🎅❄️ The spirit of Christmas (and Mrs. Claus) is cheering you on every step of the way!"
+  },
+  {
+    "objectID": "00_santa_microbiome.html",
+    "href": "00_santa_microbiome.html",
+    "title": "Santa’s cookie addiction crisis 🍪🍪🍪",
+    "section": "",
+    "text": "Ho ho ho… or maybe not so ho ho ho this year.\nSanta Claus has been facing serious health concerns after an unprecedented rise in cookie consumption last Christmas. 🍪😵\nHis belt can barely hold, and he has officially outgrown his magical sleigh!\nBut even more worrying than his waistline are the metabolic complications he’s experiencing…\n\n\n\nCookie season is on!\n\n\n\n\n\nUnlike most individuals with obesity, Santa’s condition shows:\n\nIncreased overall adiposity\nDyslipidemia (unhealthy blood fats)\nInsulin resistance\nSystemic inflammation\n\nThe elves’ medical staff are worried that if this continues…\nSanta may not have enough energy to deliver presents around the world! 🎁💔\n\n\n\n\nA study by Le Chatelier et al. demonstrated that individuals with obesity who have low gut bacterial richness\n(also known as Low Gene Count – LGC) experience more severe metabolic disturbances compared to those with higher richness (High Gene Count – HGC).\nIn short:\n> 🧫 A less diverse microbiome may worsen obesity-related health issues.\nSanta’s gut microbiota profiles indicate he belongs to the LGC group — which could explain the worrying combination of symptoms he’s facing.\n\nNow it’s up to us — the data scientists and microbiome detectives 🕵️🧠 —\nto build a machine-learningg model capable of distinguishing obese vs. non-obese individuals based on their gut microbiome profiles.\nBecause Santa’s microbiome data is highly confidential (North Pole GDPR is no joke 🧑‍⚖️🎄),\nyou’ll only be allowed to evaluate it once your model is trained and validated.\nYour mission:\n🎯 Predict whether Santa truly belongs to the “obese” group\n🧫 Identify which microbial species are protective in lean individuals\n💊 Suggest potential probiotic interventions to restore Santa’s health\nHelp Santa regain his energy, lift-off power, and return to full sleigh-flying strength! 🚀🛷✨"
+  },
+  {
+    "objectID": "00_santa_microbiome.html#elf-paulas-approval-checkpoint",
+    "href": "00_santa_microbiome.html#elf-paulas-approval-checkpoint",
+    "title": "Santa’s cookie addiction crisis 🍪🍪🍪",
+    "section": "Elf Paula’s Approval Checkpoint 🧝",
+    "text": "Elf Paula’s Approval Checkpoint 🧝\nBefore Santa’s confidential data is unlocked,\nyou must submit your best model to the Elf Review Committee™ for approval.\nOnce the elves confirm that your model meets North Pole regulatory standards (NP-FDA),\nthey will provide:\n\nSanta’s private biomedical data in a independent test set\n\nYour final task:\n🎯 Determine Santa’s overweight status with both classification and regresison model\n📈 Assess how well your models generalizes to unseen cases 🍬 How well do unseen cases cluster with the ones used for training 💊 Comment which bacteria should we target to improve Santa’s healt"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Winter Hackathon 2025",
+    "section": "",
+    "text": "HO HO HO! 🎄\nWelcome to the very first Winter Hackathon of 2025!\nBut there’s a big problem…\nSanta and his elves have all fallen terribly ill, leaving Christmas in serious danger! 🤒🎅\nThe North Pole’s medical team has called in you — a group of elite data scientists — to uncover the source of this mysterious outbreak.\nYour mission: 👉 Use machine learning to identify the key predictors of the illness\n👉 Develop a reliable model to help Santa recover\n👉 Save Christmas for children everywhere! 🎁✨\nSo grab your festive cookies and milk, turn up the Jingle Bells playlist,\nand let’s code our way to a merry holiday rescue! ❄️💻"
+  },
+  {
+    "objectID": "index.html#hackathon-objective",
+    "href": "index.html#hackathon-objective",
+    "title": "Winter Hackathon 2025",
+    "section": "🎯 Hackathon Objective",
+    "text": "🎯 Hackathon Objective\nCollaboratively develop and evaluate a predictive model for your assigned topic, and present your findings to the entire cohort.\nYour results will be judged based on:\n\nQuality and rigor of your analysis\n\nClarity and creativity in communicating findings\nSuccessful evaluation on an independent test dataset where Santa is."
+  },
+  {
+    "objectID": "index.html#topics-teams",
+    "href": "index.html#topics-teams",
+    "title": "Winter Hackathon 2025",
+    "section": "🎅 Topics & Teams",
+    "text": "🎅 Topics & Teams\n\n\n\nTopic\nTeams\n\n\n\n\nSanta’s cookie addiction crisis\nTeam A, Team B\n\n\nSanta’s smoky chimney syndrome\nTeam C, Team D\n\n\n\nEach team will receive:\n\nA training dataset\n\nAn independent test dataset (later on)\nBasic metadata and guidance from the elves (i.e., Paula 😄)"
+  },
+  {
+    "objectID": "index.html#hackathon-structure",
+    "href": "index.html#hackathon-structure",
+    "title": "Winter Hackathon 2025",
+    "section": "🧠 Hackathon Structure",
+    "text": "🧠 Hackathon Structure\n\n\n\n\n\n\n\n\nPart\nActivity\nDuration\n\n\n\n\nPart 1\nExploratory and cluster analysis & model development\n2h 30m\n\n\nPart 1a\nPresentation of results\n30-45m\n\n\nPart 2\nModel testing on independent dataset\n45m\n\n\nPart 2a\nPresentation of results\n30-45m\n\n\n\n\n⏱️ Time management will be crucial — plan, prioritize, and iterate quickly!"
+  },
+  {
+    "objectID": "index.html#final-presentation-requirements",
+    "href": "index.html#final-presentation-requirements",
+    "title": "Winter Hackathon 2025",
+    "section": "📊 Final Presentation Requirements",
+    "text": "📊 Final Presentation Requirements\nAll data and materials needed for your team presentations are available at the link below:\nGoogle Drive folder:\nhttps://drive.google.com/drive/folders/1y7cjN0c9CDnKCYVQ1n1xYpd8c0z9CspG?usp=drive_link\n\nMax 15 slides\nYou may use fewer slides — but no more!\nClear explanation of:\n\n🎯 Scientific motivation & background\n🔍 Data overview & key features\n🧪 Modeling strategy\n📈 Performance evaluation and comparison\n🎁 Key insights, limitations & next steps\n\n\nBonus points ✨ for visual polish, creativity, and storytelling — keep that holiday spirit alive!"
+  },
+  {
+    "objectID": "index.html#teamwork-guidelines",
+    "href": "index.html#teamwork-guidelines",
+    "title": "Winter Hackathon 2025",
+    "section": "❄️ Teamwork Guidelines",
+    "text": "❄️ Teamwork Guidelines\n\nDivide tasks efficiently (EDA, feature engineering, modeling, visualization, presenting)\nCommunicate openly and support each other — Christmas depends on cooperation!\nAsk for clarification when needed — but you are leading the sleigh 🚀🛷\n\n\n🔥 Good luck, have fun, and let the festive coding begin!\nLet’s save Christmas — one prediction at a time! 🎄🤖"
+  },
+  {
+    "objectID": "01_santa_lung.html",
+    "href": "01_santa_lung.html",
+    "title": "Santa’s smoky chimney syndrome 🧱🧱🔥",
+    "section": "",
+    "text": "While delivering gifts last Christmas, Santa spent hours squeezing down chimneys,\nexposed to soot, smoke, and cold winter air.\nThis year, the merry old guy has developed a persistent cough, occasional shortness of breath,\nand the elves are worried. Could these symptoms — in combination with years of chimney exposure —\nsignal something more serious lurking behind all that festive cheer? 🎄\nBefore Santa panics and trades his sleigh for a hospital bed,\nhe’s turning to you — the finest machine-learning researchers in the North Pole! 🕵️🤖\n\n\n\nOh noooo!\n\n\n\n\n\nDevelop a predictive model that can distinguish early-stage vs late-stage carcinoma based on real clinical and gene expression data.\nBecause Santa’s medical scans and biopsy results are strictly classified (sealed in a candy-cane-encrypted vault 🍬🔐),\nyou’ll only unlock access once your model shows strong performance on the provided training data.\nYour task:\n\n🧬 Identify the key clinical features linked to cancer progression\n\n📈 Build and validate a model to classify carcinoma stage\n\n🔍 Determine whether Santa may require further clinical examination\n\n\nWith your help, Santa will breathe freely again (and continue expertly sliding into homes worldwide 😌).\nLet’s make sure this holiday season remains full of joy — not cough drops! 🌬️🎁✨"
+  },
+  {
+    "objectID": "01_santa_lung.html#elf-paulas-approval-checkpoint",
+    "href": "01_santa_lung.html#elf-paulas-approval-checkpoint",
+    "title": "Santa’s smoky chimney syndrome 🧱🧱🔥",
+    "section": "Elf Paula’s Approval Checkpoint 🧝",
+    "text": "Elf Paula’s Approval Checkpoint 🧝\nBefore Santa’s confidential data is unlocked,\nyou must submit your best model to the Elf Review Committee™ for approval.\nOnce the elves confirm that your model meets North Pole regulatory standards (NP-FDA),\nthey will provide:\n\nSanta’s private biomedical data in a independent test set\n\nYour final task:\n🎯 Determine Santa’s predicted cancer stage\n📈 Assess how well your model generalizes to unseen cases 🍬\nLet’s hope that Santa ends up on the healthier, happier side of your classification results —\nwe need him fit for sleigh duty!"
+  }
+]

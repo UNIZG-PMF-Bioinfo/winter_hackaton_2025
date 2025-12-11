@@ -1,0 +1,96 @@
+---
+title: "Santa’s smoky chimney syndrome 🧱🧱🔥"
+author: "Paula Štancl, PhD"
+format:
+  html:
+    self-contained: true
+    toc: true
+    toc-depth: 5
+    code-fold: false
+    fig-align: center
+    df-print: paged
+    code-summary: "Show code"
+    code-line-numbers: false
+    code-tools: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# Santa Claus Is Coughing...
+
+While delivering gifts last Christmas, Santa spent **hours squeezing down chimneys**,\
+exposed to **soot, smoke, and cold winter air**.
+
+This year, the merry old guy has developed a **persistent cough**, occasional **shortness of breath**,\
+and the elves are *worried*. Could these symptoms --- in combination with years of chimney exposure ---\
+signal something more serious lurking behind all that festive cheer? 🎄
+
+Before Santa panics and trades his sleigh for a hospital bed,\
+he's turning to **you** --- the finest machine-learning researchers in the North Pole! 🕵️🤖
+
+![Oh noooo!](img_santa/santa_chimney.png)
+
+------------------------------------------------------------------------
+
+## 🎯 Your Mission
+
+Develop a **predictive model** that can distinguish **early-stage vs late-stage carcinoma** based on real clinical and gene expression data.
+
+Because Santa's medical scans and biopsy results are **strictly classified** (sealed in a candy-cane-encrypted vault 🍬🔐),\
+you'll only unlock access once your model shows strong performance on the provided training data.
+
+Your task:
+
+-   🧬 Identify the **key clinical features** linked to cancer progression\
+-   📈 Build and validate a model to classify **carcinoma stage**\
+-   🔍 Determine whether Santa may require **further clinical examination**
+
+------------------------------------------------------------------------
+
+With your help, Santa will breathe freely again (and continue expertly sliding into homes worldwide 😌).\
+Let's make sure this holiday season remains full of joy --- **not cough drops**! 🌬️🎁✨
+
+------------------------------------------------------------------------
+
+# Let's Get to Work! 🔬🎄
+
+[Download the dataset](projects/Lung_cancer_subset.csv.gz)
+
+### 🔍 Exploratory Data Analysis (EDA)
+
+Begin by thoroughly investigating your dataset and its variables.\
+Look for patterns, differences between groups, and potential predictors of cancer stage.
+
+Your task:\
+Formulate up to **10 meaningful scientific questions** and explore them with appropriate visualizations or summary statistics.
+
+Such as Santa asks himself are girls more happier when receiving present wrapped in pink with a glittery bow?
+
+### 🤖 Model Development: Predicting Carcinoma Stage
+
+Build **at least three-four** classification models using your training data.\
+
+Then:
+
+1.  **Compare their performance**
+2.  **Select the best model** to move forward
+3.  Which medical **features** are most important for predicting cancer stage?
+
+## Elf Paula's Approval Checkpoint 🧝
+
+Before Santa's confidential data is unlocked,\
+you must **submit your best model to the Elf Review Committee™** for approval.
+
+Once the elves confirm that your model meets North Pole regulatory standards (NP-FDA),\
+they will provide:
+
+-   Santa's **private** biomedical data in a **independent test set**
+
+Your final task:\
+🎯 Determine Santa's predicted cancer stage\
+📈 Assess how well your model generalizes to unseen cases 🍬
+
+Let's hope that Santa ends up on the **healthier, happier** side of your classification results ---\
+we need him fit for sleigh duty!
