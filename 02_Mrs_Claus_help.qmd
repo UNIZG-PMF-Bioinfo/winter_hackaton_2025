@@ -22,7 +22,6 @@ I, **Mrs. Claus**, am here to offer you a bit of warm wisdom and a few helpful g
 
 ![A little bit of help...](img_santa/claus_help.png)
 
-
 ------------------------------------------------------------------------
 
 ## 🔍✨ Mrs. Claus' Wisdom on Exploratory Analysis

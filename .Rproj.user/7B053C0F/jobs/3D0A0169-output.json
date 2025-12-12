@@ -1,0 +1,8 @@
+[2,"\n"]
+[1,"pandoc \n  to: html\n  output-file: 03_Santa_GDPR.html\n  standalone: true\n  title-prefix: Winter hackaton 2025\n  section-divs: true\n  html-math-method: mathjax\n  wrap: none\n  default-image-extension: png\n  toc: true\n  \nmetadata\n  document-css: false\n  link-citations: true\n  date-format: long\n  lang: en\n  editor: visual\n  theme: styles.scss\n  mainfont: Nunito\n  page-layout: full\n  title: Santa final prediction\n  author: 'Paula Štancl, PhD'\n  \n"]
+[1,"Output created: docs\\03_Santa_GDPR.html\n\nTerminating existing preview server....DONE\n\nPreparing to preview\n"]
+[1,"[1/2] 00_santa_microbiome.qmd\n"]
+[1,"[2/2] 02_Mrs_Claus_help.qmd\n"]
+[1,"\n"]
+[1,"Watching files for changes\nBrowse at http://localhost:3261/03_Santa_GDPR.html\n"]
+[1,"GET: /03_Santa_GDPR.html\n"]

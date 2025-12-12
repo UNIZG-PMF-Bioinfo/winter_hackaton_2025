@@ -4,6 +4,8 @@ project:
   resources:
     - projects/Microbiome_subset.csv.gz
     - projects/Lung_cancer_subset.csv.gz
+    - projects/Microbiome_TEST.csv.gz
+    - projects/Lung_cancer_TEST.csv.gz
 
 website:
   title: "Winter hackaton 2025"
@@ -19,6 +21,8 @@ website:
             href: 01_santa_lung.qmd
       - href: 02_Mrs_Claus_help.qmd
         text: Mrs. Claus to help
+      - href: 03_Santa_GDPR.qmd
+        text: Secret Santa Data
       
 
   page-footer:

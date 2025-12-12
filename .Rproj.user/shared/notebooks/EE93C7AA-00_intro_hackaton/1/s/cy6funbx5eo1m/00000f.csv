@@ -1,0 +1,13 @@
+"0","# confusion matric
+postResample(predict(glm_model, testData), testData$bmi)
+"
+"1","     RMSE "
+"1"," Rsquared "
+"1","      MAE "
+"1","
+"
+"1","5.9841171 "
+"1","0.1240002 "
+"1","5.0302378 "
+"1","
+"

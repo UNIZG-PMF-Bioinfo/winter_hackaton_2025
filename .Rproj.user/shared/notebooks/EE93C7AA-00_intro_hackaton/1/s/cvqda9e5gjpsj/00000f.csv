@@ -1,0 +1,21 @@
+"0","vec_pkgs <- c(
+  ""data.table"", ""ggplot2"", ""ggpubr"", ""corrplot"", ""Hmisc"",
+  ""caret"", ""MASS"", ""factoextra"", ""Boruta"", ""stringr"",
+  ""broom"", ""kableExtra"", ""pROC"", ""GGally""
+)
+
+for (pkgs in vec_pkgs) {
+  library(pkgs, character.only = TRUE)
+}
+"
+"2","Warning: package ‘ggplot2’ was built under R version 4.3.3"
+"2","Warning: package ‘ggpubr’ was built under R version 4.3.1"
+"2","Warning: package ‘corrplot’ was built under R version 4.3.3"
+"2","Warning: package ‘Hmisc’ was built under R version 4.3.3"
+"2","Warning: package ‘caret’ was built under R version 4.3.3"
+"2","Warning: package ‘factoextra’ was built under R version 4.3.1"
+"2","Warning: package ‘stringr’ was built under R version 4.3.3"
+"2","Warning: package ‘broom’ was built under R version 4.3.3"
+"2","Warning: package ‘kableExtra’ was built under R version 4.3.3"
+"2","Warning: package ‘pROC’ was built under R version 4.3.3"
+"2","Warning: package ‘GGally’ was built under R version 4.3.3"
