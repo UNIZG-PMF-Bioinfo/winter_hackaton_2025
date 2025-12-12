@@ -1,6 +1,0 @@
-[2,"\n"]
-[1,"pandoc \n  to: html\n  output-file: 00_santa_microbiome.html\n  standalone: true\n  self-contained: true\n  title-prefix: Winter hackaton 2025\n  section-divs: true\n  html-math-method: mathjax\n  wrap: none\n  default-image-extension: png\n  toc: true\n  toc-depth: 5\n  \nmetadata\n  document-css: false\n  link-citations: true\n  date-format: long\n  lang: en\n  editor: visual\n  theme: styles.scss\n  mainfont: Nunito\n  page-layout: full\n  title: \"Santa’s cookie addiction crisis \\U0001F36A\\U0001F36A\\U0001F36A\"\n  author: 'Paula Štancl, PhD'\n  \n"]
-[1,"Output created: docs\\00_santa_microbiome.html\n\nPreparing to preview\n"]
-[1,"\n"]
-[1,"Watching files for changes\nBrowse at http://localhost:4347/00_santa_microbiome.html\n"]
-[1,"GET: /\n"]

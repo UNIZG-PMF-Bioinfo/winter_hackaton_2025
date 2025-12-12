@@ -11,7 +11,6 @@ Santa and his elves have all fallen terribly ill, leaving Christmas in *serious*
 
 ![Santa in danger!](img_santa/santa_danger.png)
 
-
 The North Pole's medical team has called in **you** --- a group of elite data scientists --- to uncover the source of this mysterious outbreak.
 
 Your mission: 👉 Use machine learning to **identify the key predictors of the illness**\
@@ -52,12 +51,14 @@ Each team will receive:
 
 ## 🧠 Hackathon Structure
 
-| Part    | Activity                                             | Duration |
-|---------|------------------------------------------------------|---------:|
-| Part 1  | Exploratory and cluster analysis & model development |   2h 30m |
-| Part 1a | Presentation of results                              |      30-45m |
-| Part 2  | Model testing on independent dataset                 |      45m |
-| Part 2a | Presentation of results                              |      30-45m |
+| Part    | Activity                             | Duration |
+|---------|--------------------------------------|---------:|
+| Part 1  | Exploratory and cluster analysis     |   1h 30m |
+| Part 1a | Presentation of results              |   20 min |
+| Part 2  | Model development                    |       2h |
+| Part 2a | Presentation of results              |   30 min |
+| Part 3  | Model testing on independent dataset |      45m |
+| Part 3a | Presentation of results              |      20m |
 
 > ⏱️ Time management will be crucial --- plan, prioritize, and iterate quickly!
 
@@ -67,9 +68,8 @@ Each team will receive:
 
 All data and materials needed for your team presentations are available at the link below:
 
-**Google Drive folder:**  
+**Google Drive folder:**\
 <https://drive.google.com/drive/folders/1y7cjN0c9CDnKCYVQ1n1xYpd8c0z9CspG?usp=drive_link>
-
 
 -   Max **15 slides**
 -   You may use fewer slides --- **but no more!**

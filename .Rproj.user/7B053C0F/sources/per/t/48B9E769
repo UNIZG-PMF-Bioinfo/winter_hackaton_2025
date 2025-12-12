@@ -1,26 +1,26 @@
 {
-    "id": "D79CAA1F",
+    "id": "48B9E769",
     "path": "C:/Users/Paula/OneDrive/Work/Courses/course_2025_2026/MLSTAT/hackaton25/winter_hackaton25/_quarto.yml",
     "project_path": "_quarto.yml",
     "type": "yaml",
-    "hash": "3232703254",
+    "hash": "1957842105",
     "contents": "",
     "dirty": false,
-    "created": 1765462718150.0,
+    "created": 1765466737511.0,
     "source_on_save": false,
     "relative_order": 5,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "28,0",
+        "cursorPosition": "5,36",
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1764778104,
+    "lastKnownWriteTime": 1765469366,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1764778104,
+    "last_content_update": 1765469366081,
     "read_only": false,
     "read_only_alternatives": []
 }
